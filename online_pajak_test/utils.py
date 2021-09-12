@@ -12,6 +12,6 @@ def get_score(total, average):
   1 invoice get 1 point. But after x days until next invoice, 
   point will be decreased by 1
   """
-  POINT_SCALE = 7 # days (could be changed to any preferred length)
+  POINT_SCALE = 30 # days (could be changed to any preferred length)
   average_point = average/POINT_SCALE
   return round(math.log10(total - average_point), 4) if total > average_point else 0
