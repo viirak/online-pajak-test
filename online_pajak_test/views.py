@@ -3,12 +3,15 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import InvoiceData
 from .utils import get_diff_days, get_score
+from rest_framework.permissions import AllowAny
 
 
 class CompanyView(APIView):
     """
     View to find companies in the system.
     """
+
+    permission_classes = (AllowAny,)
 
     def get(self, request, company_name):
         """
@@ -30,11 +33,23 @@ class CompanyRelationView(APIView):
     View to get relationship between companies.
     """
 
+    permission_classes = (AllowAny,)
+
     def get(self, request, company_names):
         """
         Return the relationship score between companies.
 
-        * requires: company slugs in format of: <slug>+<slug>
+        ---
+        parameters:
+        - name: username
+          description: Foobar long description goes here
+          required: true
+          type: string
+          paramType: form
+        - name: password
+          paramType: form
+          required: true
+          type: string
         """
         slugs = company_names.split(',')
         rows = InvoiceData().get_related_invoices(
