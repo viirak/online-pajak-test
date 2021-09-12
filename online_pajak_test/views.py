@@ -16,7 +16,14 @@ class CompanyValidationView(APIView):
 
     def get(self, request, company_name):
         """
-        Return a company that exist in the system.
+        Check to verify if a third-party company is exist in the system.
+        
+        To validate a company, make an HTTP GET to this company validation \
+        resource URI.
+        
+        When creating a new request via the API, you must include the \
+        company_name parameter. This value is the full company name which \
+        include whitespaces like for example: "Perum Hassanah Iswahyudi"
         """
         name = company_name.lower()
         invoices = InvoiceData().get_invoices_by_company_name(name)
@@ -26,33 +33,27 @@ class CompanyValidationView(APIView):
           company_name, str_exist)
         response_status = status.HTTP_200_OK if is_company_exist \
           else status.HTTP_404_NOT_FOUND
-        return Response(
-          data={"exist": is_company_exist, "message": msg},
-          status=response_status)
+        return Response(data={"message": msg},status=response_status)
 
 
 class CompanyRelationView(APIView):
     """
-    View to get relationship between companies.
+    View to get the relationship score between two companies to assess how \
+    frequent 2 companies can be confirmed to be transacting with one another.
     """
 
     permission_classes = (AllowAny,)
 
     def get(self, request, company_names):
         """
-        Return the relationship score between companies.
-
-        ---
-        parameters:
-        - name: username
-          description: Foobar long description goes here
-          required: true
-          type: string
-          paramType: form
-        - name: password
-          paramType: form
-          required: true
-          type: string
+        Retrieve the relationship score between companies.
+        To get the relationship score between two companies, make an HTTP GET \
+        request to this company relationship resource URI. 
+        
+        When creating a new request to this API, you must include the \
+        company_names parameter. This value is the two company's full name \
+        which include whitespaces separated by comma (,) like for example: \
+        "Perum Hassanah Iswahyudi,CV Maryati Suryatmi Tbk"
         """
         slugs = company_names.split(',')
         rows = InvoiceData().get_related_invoices(
