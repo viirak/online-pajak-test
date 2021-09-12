@@ -1,3 +1,5 @@
+from .views import CompanyView, CompanyRelationView
+
 """online_pajak_test URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -14,8 +16,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import re_path
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    re_path(r'^api/v1/companies/exist/(?P<company_name>[\w|\W+-]+)/$', \
+        CompanyView.as_view(), name="get_a_company"),
+    re_path(r'^api/v1/companies/relationship/(?P<company_names>[\w|\W+-]+)/$',\
+        CompanyRelationView.as_view(), name="get_company_relationship"),
 ]
