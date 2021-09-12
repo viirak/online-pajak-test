@@ -16,9 +16,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import re_path
+from django.urls import path, re_path
+from rest_framework.documentation import include_docs_urls
 
 urlpatterns = [
+    path('docs/', include_docs_urls(title='Invoice Data API')),
     re_path(r'^api/v1/companies/exist/(?P<company_name>[\w|\W+-]+)/$', \
         CompanyView.as_view(), name="get_a_company"),
     re_path(r'^api/v1/companies/relationship/(?P<company_names>[\w|\W+-]+)/$',\
