@@ -34,6 +34,11 @@ Run server
 
 The development server should be started at http://127.0.0.1:8000/
 
+## API Doc
+
+To view the API doc, simply just visit http://localhost:8000/docs/ after the development server has started.
+    http://localhost:8000/docs/
+
 ## Endpoints
 
 This application provides 2 endpoints, (1) for the company validation -- to verify if it is a user within the system, and (2) is for getting the relationship scoring between two companies.
