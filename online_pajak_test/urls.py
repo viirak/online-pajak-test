@@ -21,8 +21,8 @@ from rest_framework.documentation import include_docs_urls
 
 urlpatterns = [
     path('docs/', include_docs_urls(title='Invoice Data API')),
-    re_path(r'^api/v1/companies/validate/(?P<company_name>[\w|\W+-]+)/$', \
+    re_path(r'^invoices/companies/validate/(?P<company_name>[\w|\W+-]+)/$', \
         CompanyValidationView.as_view(), name="validate_a_company"),
-    re_path(r'^api/v1/companies/relationship/(?P<company_names>[\w|\W+-]+)/$',\
+    re_path(r'^invoices/companies/relationship/(?P<company_names>[\w|\W+-]+)/$',
         CompanyRelationView.as_view(), name="get_company_relationship_score"),
 ]
